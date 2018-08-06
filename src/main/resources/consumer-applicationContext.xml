@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+        ">
+    <!--设置consumer的全句日志级别-->
+    <dubbo:consumer>
+        <dubbo:parameter key="qloglevel" value="5" />
+    </dubbo:consumer>
+
+    <dubbo:registry address="zk.beta.corp.qunar.com:2181,zk1.beta.corp.qunar.com:2181,zk2.beta.corp.qunar.com:2181,zk3.beta.corp.qunar.com:2181"
+                    protocol="zookeeper" group="/flight/fuwu/fuwu_orderapp/36325" id="orderapp" version="1.0.0" />
+
+
+    <!--order app -->
+    <dubbo:reference check="false" id="orderInfoQueryService"
+                     registry="orderapp"
+                     interface="com.qunar.fuwu.orderapp.api.orderInfo.service.IOrderInfoQueryService"
+                     version="1.0.0"/>
+
+</beans>
